@@ -1,4 +1,32 @@
 <?xml version="1.0"?>
 <launch>
-
+    <include file="$(find inmoov_description)/launch/description.launch"/>
+    <rosparam command="load" file="$(find inmoov_control)/config/control.yaml"/>
+    
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+          args="inmoov_joint_publisher
+          inmoov_waist_pan_controller
+          inmoov_waist_roll_controller
+          inmoov_r_shoulder_base_controller
+          inmoov_l_shoulder_base_controller
+          inmoov_r_shoulder_lift_controller
+          inmoov_l_shoulder_lift_controller
+          inmoov_r_upper_arm_roll_controller
+          inmoov_l_upper_arm_roll_controller
+          inmoov_r_elbow_flex_controller
+          inmoov_l_elbow_flex_controller
+          inmoov_r_wrist_roll_controller
+          inmoov_l_wrist_roll_controller
+          inmoov_r_thumb_controller
+          inmoov_l_thumb_controller
+          inmoov_r_index_controller
+          inmoov_l_index_controller
+          inmoov_r_middle_controller
+          inmoov_l_middle_controller
+          inmoov_r_ring_controller
+          inmoov_l_ring_controller
+          inmoov_r_pinky_controller
+          inmoov_l_pinky_controller
+          --shutdown-timeout 3"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 </launch>

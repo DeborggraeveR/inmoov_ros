@@ -1,4 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-
+    <include file="$(find inmoov_control)/launch/control.launch"/>
+    <node name="spawn_inmoov_model" pkg="gazebo_ros" type="spawn_model" 
+          args="-unpause
+                -urdf
+                -param robot_description
+                -model inmoov
+                -x 0
+                -y 0
+                -z 0.0"/>
 </launch>

@@ -13,6 +13,10 @@
   <url type="bugtracker">https://github.com/DeborggraeveR/inmoov_ros/issues</url>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>roslaunch</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
 
   <export/>
 </package>

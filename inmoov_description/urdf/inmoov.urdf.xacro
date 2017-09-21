@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<robot name="inmoov" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:arg name="robot_namespace" default="/" />
+
+    <xacro:include filename="$(find inmoov_description)/urdf/config.inertial.urdf.xacro"/>
+    <xacro:include filename="$(find inmoov_description)/urdf/materials.urdf.xacro"/>
+    <xacro:include filename="$(find inmoov_description)/urdf/torso.urdf.xacro"/>
+    <xacro:include filename="$(find inmoov_description)/urdf/arm.urdf.xacro"/>
+    <xacro:include filename="$(find inmoov_description)/urdf/hand.urdf.xacro"/>
+
+    <xacro:macro name="cylinder_inertia" params="m r h">
+        <inertia ixx="${m*(3*r*r+h*h)/12}" ixy="0" ixz="0"
+                 iyy="${m*(3*r*r+h*h)/12}" iyz="0"
+                 izz="${m*r*r/2}"
+        />
+    </xacro:macro>
+
+    <link name="world"/>
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.11" radius="0.26"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.055"/>
+        </visual>
+        <inertial>
+            <mass value="10"/>
+            <origin xyz="0.0 0.0 0.0"/>
+            <cylinder_inertia m="10" r="0.26" h="0.11"/>
+        </inertial>
+    </link>
+    <link name="pedestal_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.94" radius="0.0254"/>
+            </geometry>
+            <origin pry="0.0 0.0 0.0" xyz="0.0 0.0 0.58"/>
+        </visual>
+        <inertial>
+            <mass value="10"/>
+            <origin xyz="0.0 0.0 0.58"/>
+            <cylinder_inertia m="10" r="0.0254" h="0.94"/>
+        </inertial>
+    </link>
+
+    <xacro:arm side="r" flip="1" base="torso_link"/>
+    <xacro:arm side="l" flip="-1" base="torso_link"/>
+    <xacro:hand side="r" flip="1"/>
+    <xacro:hand side="l" flip="-1"/>
+
+    <joint name="fixed" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+    <joint name="base_to_pedestal_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="pedestal_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </joint>
+    <joint name="pedestal_to_top_stomach_joint" type="fixed">
+        <parent link="pedestal_link"/>
+        <child link="mid_stomach_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </joint>
+    <joint name="r_shoulder_base_joint" type="revolute">
+        <axis xyz="-1.0 0.0 0.0"/>
+        <limit effort="1000.0" lower="0.0" upper="1.0" velocity="1.0"/>
+        <parent link="torso_link"/>
+        <child link="r_shoulder_base_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.143 0.298"/>
+    </joint>
+    <joint name="r_wrist_roll_joint" type="revolute">
+        <axis xyz="0.0 0.0 -1.0"/>
+        <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="1.0"/>
+        <parent link="r_forearm_link"/>
+        <child link="r_hand_base_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="-0.0144 0.01 -0.2885"/>
+    </joint>
+    <joint name="l_shoulder_base_joint" type="revolute">
+        <axis xyz="1.0 0.0 0.0"/>
+        <limit effort="1000.0" lower="0.0" upper="1.0" velocity="1.0"/>
+        <parent link="torso_link"/>
+        <child link="l_shoulder_base_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.143 0.298"/>
+    </joint>
+    <joint name="l_wrist_roll_joint" type="revolute">
+        <axis xyz="0.0 0.0 1.0"/>
+        <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="1.0"/>
+        <parent link="l_forearm_link"/>
+        <child link="l_hand_base_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="-0.0144 -0.01 -0.2885"/>
+    </joint>
+
+    <transmission name="r_shoulder_base_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="r_shoulder_base_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="r_shoulder_base_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="l_shoulder_base_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="l_shoulder_base_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="l_shoulder_base_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="r_wrist_roll_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="r_wrist_roll_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="r_wrist_roll_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="l_wrist_roll_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="l_wrist_roll_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="l_wrist_roll_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>$(arg robot_namespace)</robotNamespace>
+        </plugin>
+    </gazebo>
+</robot>

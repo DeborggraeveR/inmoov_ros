@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<robot name="inmoov_torso" xmlns:xacro="http://ros.org/wiki/xacro">
+    <link name="mid_stomach_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://inmoov_description/meshes/mid_stomach.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 1.152"/>
+            <xacro:frame_color/>
+        </visual>
+        <xacro:mid_stomach_inertial/>
+    </link>
+    <link name="top_stomach_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://inmoov_description/meshes/top_stomach.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <xacro:frame_color/>
+        </visual>
+        <xacro:top_stomach_inertial/>
+    </link>
+    <link name="torso_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://inmoov_description/meshes/torso.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <xacro:frame_color/>
+        </visual>
+        <xacro:torso_inertial/>
+    </link>
+
+    <joint name="waist_pan_joint" type="revolute">
+        <axis xyz="0.0 0.0 1.0"/>
+        <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="1.0"/>
+        <parent link="mid_stomach_link"/>
+        <child link="top_stomach_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 1.152"/>
+    </joint>
+    <joint name="waist_roll_joint" type="revolute">
+        <axis xyz="1.0 0.0 0.0"/>
+        <limit effort="1000.0" lower="-0.25" upper="0.25" velocity="1.0"/>
+        <parent link="top_stomach_link"/>
+        <child link="torso_link"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.11"/>
+    </joint>
+
+    <transmission name="waist_pan_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="waist_pan_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="waist_pan_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="waist_roll_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="waist_roll_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="waist_roll_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <gazebo reference="mid_stomach_link">
+        <xacro:g_frame_color/>
+    </gazebo>
+    <gazebo reference="top_stomach_link">
+        <xacro:g_frame_color/>
+    </gazebo>
+    <gazebo reference="torso_link">
+        <xacro:g_frame_color/>
+    </gazebo>
+</robot>
+    

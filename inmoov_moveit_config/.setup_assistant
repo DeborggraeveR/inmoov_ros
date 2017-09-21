@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: inmoov_description
+    relative_path: urdf/inmoov.urdf.xacro
+  SRDF:
+    relative_path: config/inmoov.srdf
+  CONFIG:
+    author_name: Randy Deborggraeve
+    author_email: randy.deborggraeve@gmail.com
+    generated_timestamp: 1506019115

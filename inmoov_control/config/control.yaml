@@ -1,0 +1,113 @@
+inmoov_joint_publisher:
+  type          : joint_state_controller/JointStateController
+  publish_rate  : 50
+
+inmoov_waist_pan_controller:
+  type          : position_controllers/JointPositionController
+  joint         : waist_pan_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_waist_roll_controller:
+  type          : position_controllers/JointPositionController
+  joint         : waist_roll_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_shoulder_base_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_shoulder_base_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_shoulder_base_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_shoulder_base_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_shoulder_lift_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_shoulder_lift_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_shoulder_lift_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_shoulder_lift_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_upper_arm_roll_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_upper_arm_roll_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_upper_arm_roll_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_upper_arm_roll_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_elbow_flex_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_elbow_flex_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_elbow_flex_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_elbow_flex_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_wrist_roll_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_wrist_roll_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_wrist_roll_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_wrist_roll_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_thumb_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_thumb_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_thumb_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_thumb_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_index_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_index_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_index_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_index_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_middle_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_middle_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_middle_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_middle_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_ring_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_ring_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_ring_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_ring_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_r_pinky_controller:
+  type          : position_controllers/JointPositionController
+  joint         : r_pinky_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}
+
+inmoov_l_pinky_controller:
+  type          : position_controllers/JointPositionController
+  joint         : l_pinky_joint
+  pid           : {p: 100.0, i: 0.01, d: 10.0}

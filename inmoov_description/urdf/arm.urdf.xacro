@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<robot name="inmoov_arm" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="arm" params="side flip base">
+        <link name="${side}_shoulder_base_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://inmoov_description/meshes/${side}_shoulder_base.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <xacro:frame_color/>
+            </visual>
+            <xacro:if value="${side == 'r'}">
+                <xacro:r_shoulder_base_inertial/>
+            </xacro:if>
+            <xacro:if value="${side == 'l'}">
+                <xacro:l_shoulder_base_inertial/>
+            </xacro:if>
+        </link>
+        <link name="${side}_shoulder_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://inmoov_description/meshes/${side}_shoulder.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <xacro:frame_color/>
+            </visual>
+            <xacro:if value="${side == 'r'}">
+                <xacro:r_shoulder_inertial/>
+            </xacro:if>
+            <xacro:if value="${side == 'l'}">
+                <xacro:l_shoulder_inertial/>
+            </xacro:if>
+        </link>
+        <link name="${side}_bicep_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://inmoov_description/meshes/bicep.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <xacro:frame_color/>
+            </visual>
+            <xacro:bicep_inertial/>
+        </link>
+        <link name="${side}_forearm_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://inmoov_description/meshes/${side}_forearm.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <xacro:frame_color/>
+            </visual>
+            <xacro:if value="${side == 'r'}">
+                <xacro:r_forearm_inertial/>
+            </xacro:if>
+            <xacro:if value="${side == 'l'}">
+                <xacro:l_forearm_inertial/>
+            </xacro:if>
+        </link>
+
+        <joint name="${side}_shoulder_lift_joint" type="revolute">
+            <axis xyz="0.0 -1.0 0.0"/>
+            <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="1.0"/>
+            <parent link="${side}_shoulder_base_link"/>
+            <child link="${side}_shoulder_link"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 ${flip * -0.012} -0.04"/>
+        </joint>
+        <joint name="${side}_upper_arm_roll_joint" type="revolute">
+            <axis xyz="0.0 0.0 ${flip}"/>
+            <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="1.0"/>
+            <parent link="${side}_shoulder_link"/>
+            <child link="${side}_bicep_link"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 ${flip * -0.066} -0.060"/>
+        </joint>
+        <joint name="${side}_elbow_flex_joint" type="revolute">
+            <axis xyz="0.0 -1.0 0.0"/>
+            <limit effort="1000.0" lower="0.0" upper="1.0" velocity="1.0"/>
+            <parent link="${side}_bicep_link"/>
+            <child link="${side}_forearm_link"/>
+            <origin rpy="0.0 0.0 0.0" xyz="-0.0278 0.0 -0.2235"/>
+        </joint>
+
+        <transmission name="${side}_shoulder_lift_transmission">
+           <type>transmission_interface/SimpleTransmission</type>
+           <joint name="${side}_shoulder_lift_joint">
+               <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+           </joint>
+           <actuator name="${side}_shoulder_lift_motor">
+               <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+               <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+        <transmission name="${side}_upper_arm_roll_transmission">
+           <type>transmission_interface/SimpleTransmission</type>
+           <joint name="${side}_upper_arm_roll_joint">
+               <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+           </joint>
+           <actuator name="${side}_upper_arm_roll_motor">
+               <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+               <mechanicalReduction>1</mechanicalReduction>
+           </actuator>
+        </transmission>
+        <transmission name="${side}_elbow_flex_transmission">
+           <type>transmission_interface/SimpleTransmission</type>
+           <joint name="${side}_elbow_flex_joint">
+               <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+           </joint>
+           <actuator name="${side}_elbow_flex_motor">
+               <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+               <mechanicalReduction>1</mechanicalReduction>
+           </actuator>
+        </transmission>
+
+        <gazebo reference="${side}_shoulder_base_link">
+            <xacro:g_frame_color/>
+        </gazebo>
+        <gazebo reference="${side}_shoulder_link">
+            <xacro:g_frame_color/>
+        </gazebo>
+        <gazebo reference="${side}_bicep_link">
+            <xacro:g_frame_color/>
+        </gazebo>
+        <gazebo reference="${side}_forearm_link">
+            <xacro:g_frame_color/>
+        </gazebo>
+    </xacro:macro>
+</robot>

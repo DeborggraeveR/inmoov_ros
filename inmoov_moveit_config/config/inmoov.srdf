@@ -1,0 +1,1328 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="inmoov">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="r_arm">
+        <chain base_link="torso_link" tip_link="r_hand_base_link" />
+    </group>
+    <group name="l_arm">
+        <chain base_link="torso_link" tip_link="l_hand_base_link" />
+    </group>
+    <group name="r_hand_index">
+        <link name="r_index1_link" />
+        <link name="r_index2_link" />
+        <link name="r_index3_link" />
+        <joint name="r_index_joint" />
+    </group>
+    <group name="r_hand_middle">
+        <link name="r_middle1_link" />
+        <link name="r_middle2_link" />
+        <link name="r_middle3_link" />
+        <joint name="r_middle_joint" />
+    </group>
+    <group name="r_hand_ring">
+        <link name="r_ring1_link" />
+        <link name="r_ring2_link" />
+        <link name="r_ring3_link" />
+        <link name="r_ring4_link" />
+        <joint name="r_ring_joint" />
+    </group>
+    <group name="r_hand_pinky">
+        <link name="r_pinky1_link" />
+        <link name="r_pinky2_link" />
+        <link name="r_pinky3_link" />
+        <link name="r_pinky4_link" />
+        <joint name="r_pinky_joint" />
+    </group>
+    <group name="r_hand_thumb">
+        <link name="r_thumb1_link" />
+        <link name="r_thumb2_link" />
+        <link name="r_thumb3_link" />
+        <joint name="r_thumb_joint" />
+    </group>
+    <group name="l_hand_index">
+        <link name="l_index1_link" />
+        <link name="l_index2_link" />
+        <link name="l_index3_link" />
+        <joint name="l_index_joint" />
+    </group>
+    <group name="l_hand_middle">
+        <link name="l_middle1_link" />
+        <link name="l_middle2_link" />
+        <link name="l_middle3_link" />
+        <joint name="l_middle_joint" />
+    </group>
+    <group name="l_hand_ring">
+        <link name="l_ring1_link" />
+        <link name="l_ring2_link" />
+        <link name="l_ring3_link" />
+        <link name="l_ring4_link" />
+        <joint name="l_ring_joint" />
+    </group>
+    <group name="l_hand_pinky">
+        <link name="l_pinky1_link" />
+        <link name="l_pinky2_link" />
+        <link name="l_pinky3_link" />
+        <link name="l_pinky4_link" />
+        <joint name="l_pinky_joint" />
+    </group>
+    <group name="l_hand_thumb">
+        <link name="l_thumb1_link" />
+        <link name="l_thumb2_link" />
+        <link name="l_thumb3_link" />
+        <joint name="l_thumb_joint" />
+    </group>
+    <group name="r_hand">
+        <group name="r_hand_index" />
+        <group name="r_hand_middle" />
+        <group name="r_hand_ring" />
+        <group name="r_hand_pinky" />
+        <group name="r_hand_thumb" />
+    </group>
+    <group name="l_hand">
+        <group name="l_hand_index" />
+        <group name="l_hand_middle" />
+        <group name="l_hand_ring" />
+        <group name="l_hand_pinky" />
+        <group name="l_hand_thumb" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="r_arm_home" group="r_arm">
+        <joint name="r_elbow_flex_joint" value="0" />
+        <joint name="r_shoulder_base_joint" value="0" />
+        <joint name="r_shoulder_lift_joint" value="0" />
+        <joint name="r_upper_arm_roll_joint" value="0" />
+        <joint name="r_wrist_roll_joint" value="0" />
+    </group_state>
+    <group_state name="l_arm_home" group="l_arm">
+        <joint name="l_elbow_flex_joint" value="0" />
+        <joint name="l_shoulder_base_joint" value="0" />
+        <joint name="l_shoulder_lift_joint" value="0" />
+        <joint name="l_upper_arm_roll_joint" value="0" />
+        <joint name="l_wrist_roll_joint" value="0" />
+    </group_state>
+    <group_state name="r_hand_open" group="r_hand">
+        <joint name="r_index1_joint" value="0" />
+        <joint name="r_index3_joint" value="0" />
+        <joint name="r_index_joint" value="0" />
+        <joint name="r_middle1_joint" value="0" />
+        <joint name="r_middle3_joint" value="0" />
+        <joint name="r_middle_joint" value="0" />
+        <joint name="r_pinky1_joint" value="0" />
+        <joint name="r_pinky3_joint" value="0" />
+        <joint name="r_pinky4_joint" value="0" />
+        <joint name="r_pinky_joint" value="0" />
+        <joint name="r_ring1_joint" value="0" />
+        <joint name="r_ring3_joint" value="0" />
+        <joint name="r_ring4_joint" value="0" />
+        <joint name="r_ring_joint" value="0" />
+        <joint name="r_thumb1_joint" value="0" />
+        <joint name="r_thumb3_joint" value="0" />
+        <joint name="r_thumb_joint" value="0" />
+    </group_state>
+    <group_state name="r_hand_closed" group="r_hand">
+        <joint name="r_index1_joint" value="1" />
+        <joint name="r_index3_joint" value="1" />
+        <joint name="r_index_joint" value="1" />
+        <joint name="r_middle1_joint" value="1" />
+        <joint name="r_middle3_joint" value="1" />
+        <joint name="r_middle_joint" value="1" />
+        <joint name="r_pinky1_joint" value="1" />
+        <joint name="r_pinky3_joint" value="1" />
+        <joint name="r_pinky4_joint" value="1" />
+        <joint name="r_pinky_joint" value="1" />
+        <joint name="r_ring1_joint" value="1" />
+        <joint name="r_ring3_joint" value="1" />
+        <joint name="r_ring4_joint" value="1" />
+        <joint name="r_ring_joint" value="1" />
+        <joint name="r_thumb1_joint" value="1" />
+        <joint name="r_thumb3_joint" value="1" />
+        <joint name="r_thumb_joint" value="1" />
+    </group_state>
+    <group_state name="l_hand_open" group="l_hand">
+        <joint name="l_index1_joint" value="0" />
+        <joint name="l_index3_joint" value="0" />
+        <joint name="l_index_joint" value="0" />
+        <joint name="l_middle1_joint" value="0" />
+        <joint name="l_middle3_joint" value="0" />
+        <joint name="l_middle_joint" value="0" />
+        <joint name="l_pinky1_joint" value="0" />
+        <joint name="l_pinky3_joint" value="0" />
+        <joint name="l_pinky4_joint" value="0" />
+        <joint name="l_pinky_joint" value="0" />
+        <joint name="l_ring1_joint" value="0" />
+        <joint name="l_ring3_joint" value="0" />
+        <joint name="l_ring4_joint" value="0" />
+        <joint name="l_ring_joint" value="0" />
+        <joint name="l_thumb1_joint" value="0" />
+        <joint name="l_thumb3_joint" value="0" />
+        <joint name="l_thumb_joint" value="0" />
+    </group_state>
+    <group_state name="l_hand_closed" group="l_hand">
+        <joint name="l_index1_joint" value="1" />
+        <joint name="l_index3_joint" value="1" />
+        <joint name="l_index_joint" value="1" />
+        <joint name="l_middle1_joint" value="1" />
+        <joint name="l_middle3_joint" value="1" />
+        <joint name="l_middle_joint" value="1" />
+        <joint name="l_pinky1_joint" value="1" />
+        <joint name="l_pinky3_joint" value="1" />
+        <joint name="l_pinky4_joint" value="1" />
+        <joint name="l_pinky_joint" value="1" />
+        <joint name="l_ring1_joint" value="1" />
+        <joint name="l_ring3_joint" value="1" />
+        <joint name="l_ring4_joint" value="1" />
+        <joint name="l_ring_joint" value="1" />
+        <joint name="l_thumb1_joint" value="1" />
+        <joint name="l_thumb3_joint" value="1" />
+        <joint name="l_thumb_joint" value="1" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="r_hand_eef" parent_link="r_hand_base_link" group="r_hand" parent_group="r_arm" />
+    <end_effector name="l_hand_eef" parent_link="l_hand_base_link" group="l_hand" parent_group="l_arm" />
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_world_odom" type="fixed" parent_frame="odom_combined" child_link="world" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base_link" link2="l_bicep_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_forearm_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_hand_base_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_index1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_index2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_index3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_middle1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_middle2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="pedestal_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_forearm_link" reason="Adjacent" />
+    <disable_collisions link1="l_bicep_link" link2="l_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_index1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_index2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_index3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_middle1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_middle2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="l_bicep_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_bicep_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_hand_base_link" reason="Adjacent" />
+    <disable_collisions link1="l_forearm_link" link2="l_index1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_index2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_index3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_middle1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_middle2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_forearm_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_index1_link" reason="Adjacent" />
+    <disable_collisions link1="l_hand_base_link" link2="l_index2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_index3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_middle1_link" reason="Adjacent" />
+    <disable_collisions link1="l_hand_base_link" link2="l_middle2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_pinky1_link" reason="Adjacent" />
+    <disable_collisions link1="l_hand_base_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_ring1_link" reason="Adjacent" />
+    <disable_collisions link1="l_hand_base_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_thumb1_link" reason="Adjacent" />
+    <disable_collisions link1="l_hand_base_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_hand_base_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_index2_link" reason="Adjacent" />
+    <disable_collisions link1="l_index1_link" link2="l_index3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_middle1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_middle2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_index1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_index3_link" reason="Adjacent" />
+    <disable_collisions link1="l_index2_link" link2="l_middle1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_middle2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_index2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_middle1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_middle2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_index3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_middle2_link" reason="Adjacent" />
+    <disable_collisions link1="l_middle1_link" link2="l_middle3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_middle1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_middle3_link" reason="Adjacent" />
+    <disable_collisions link1="l_middle2_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_middle2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_middle3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_pinky2_link" reason="Adjacent" />
+    <disable_collisions link1="l_pinky1_link" link2="l_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_ring1_link" reason="Default" />
+    <disable_collisions link1="l_pinky1_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_pinky3_link" reason="Adjacent" />
+    <disable_collisions link1="l_pinky2_link" link2="l_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_pinky4_link" reason="Adjacent" />
+    <disable_collisions link1="l_pinky3_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_ring1_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_pinky4_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="l_ring2_link" reason="Adjacent" />
+    <disable_collisions link1="l_ring1_link" link2="l_ring3_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="l_ring3_link" reason="Adjacent" />
+    <disable_collisions link1="l_ring2_link" link2="l_ring4_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="l_ring4_link" reason="Adjacent" />
+    <disable_collisions link1="l_ring3_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="l_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="l_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_ring4_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="l_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="l_shoulder_base_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_base_link" link2="torso_link" reason="Adjacent" />
+    <disable_collisions link1="l_shoulder_link" link2="l_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="l_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="pedestal_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_shoulder_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="l_thumb2_link" reason="Adjacent" />
+    <disable_collisions link1="l_thumb1_link" link2="l_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_thumb1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="l_thumb3_link" reason="Adjacent" />
+    <disable_collisions link1="l_thumb2_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_thumb2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="mid_stomach_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="l_thumb3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="pedestal_link" reason="Adjacent" />
+    <disable_collisions link1="mid_stomach_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="mid_stomach_link" link2="top_stomach_link" reason="Adjacent" />
+    <disable_collisions link1="mid_stomach_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="pedestal_link" link2="r_bicep_link" reason="Never" />
+    <disable_collisions link1="pedestal_link" link2="r_forearm_link" reason="Never" />
+    <disable_collisions link1="pedestal_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="pedestal_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="pedestal_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="pedestal_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_forearm_link" reason="Adjacent" />
+    <disable_collisions link1="r_bicep_link" link2="r_hand_base_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="r_bicep_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_bicep_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_hand_base_link" reason="Adjacent" />
+    <disable_collisions link1="r_forearm_link" link2="r_index1_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_forearm_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_index1_link" reason="Adjacent" />
+    <disable_collisions link1="r_hand_base_link" link2="r_index2_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_middle1_link" reason="Adjacent" />
+    <disable_collisions link1="r_hand_base_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_pinky1_link" reason="Adjacent" />
+    <disable_collisions link1="r_hand_base_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_ring1_link" reason="Adjacent" />
+    <disable_collisions link1="r_hand_base_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_thumb1_link" reason="Adjacent" />
+    <disable_collisions link1="r_hand_base_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_hand_base_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_index2_link" reason="Adjacent" />
+    <disable_collisions link1="r_index1_link" link2="r_index3_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_index1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_index3_link" reason="Adjacent" />
+    <disable_collisions link1="r_index2_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_index2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_middle1_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_middle2_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_index3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_middle2_link" reason="Adjacent" />
+    <disable_collisions link1="r_middle1_link" link2="r_middle3_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_middle1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_middle3_link" reason="Adjacent" />
+    <disable_collisions link1="r_middle2_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_middle2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_pinky1_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_pinky2_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_middle3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_pinky2_link" reason="Adjacent" />
+    <disable_collisions link1="r_pinky1_link" link2="r_pinky3_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_ring1_link" reason="Default" />
+    <disable_collisions link1="r_pinky1_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_pinky1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_pinky3_link" reason="Adjacent" />
+    <disable_collisions link1="r_pinky2_link" link2="r_pinky4_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_pinky2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_pinky4_link" reason="Adjacent" />
+    <disable_collisions link1="r_pinky3_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_pinky3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_ring1_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_ring2_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_pinky4_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="r_ring2_link" reason="Adjacent" />
+    <disable_collisions link1="r_ring1_link" link2="r_ring3_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_ring1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="r_ring3_link" reason="Adjacent" />
+    <disable_collisions link1="r_ring2_link" link2="r_ring4_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_ring2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_ring3_link" link2="r_ring4_link" reason="Adjacent" />
+    <disable_collisions link1="r_ring3_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_ring3_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_ring3_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_ring3_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_ring3_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_ring3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_ring3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_ring4_link" link2="r_shoulder_base_link" reason="Never" />
+    <disable_collisions link1="r_ring4_link" link2="r_shoulder_link" reason="Never" />
+    <disable_collisions link1="r_ring4_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_ring4_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_ring4_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_ring4_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_ring4_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_base_link" link2="r_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="r_shoulder_base_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_base_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_base_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_base_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_base_link" link2="torso_link" reason="Adjacent" />
+    <disable_collisions link1="r_shoulder_link" link2="r_thumb1_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_link" link2="r_thumb2_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_shoulder_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_thumb1_link" link2="r_thumb2_link" reason="Adjacent" />
+    <disable_collisions link1="r_thumb1_link" link2="r_thumb3_link" reason="Never" />
+    <disable_collisions link1="r_thumb1_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_thumb1_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_thumb2_link" link2="r_thumb3_link" reason="Adjacent" />
+    <disable_collisions link1="r_thumb2_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_thumb2_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="r_thumb3_link" link2="top_stomach_link" reason="Never" />
+    <disable_collisions link1="r_thumb3_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="top_stomach_link" link2="torso_link" reason="Adjacent" />
+</robot>
