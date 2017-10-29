@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="speech_recognizer" pkg="inmoov_speech_recognizer" type="recognizer" />
+</launch>
